@@ -2,6 +2,8 @@ import React, { useState, ChangeEventHandler } from "react";
 
 import styles from './payment-input.module.css';
 
+import icon from './icon/info.svg';
+
 type PaymentInputProps = {
     name: "cardNum" | "expDate" | "CVC",
     label: string,
@@ -54,7 +56,7 @@ export const PaymentInput: React.FC<PaymentInputProps> = ({
                         onClick={handleInfoClick}
                         aria-label="What is CVC?"
                     >
-                        <img src={`${import.meta.env.BASE_URL}icons/info.svg`} />
+                        <img src={icon} alt="info"/>
                     </button>
                 )}
                 {showTooltip && name === "CVC" && (
