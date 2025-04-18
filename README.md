@@ -20,6 +20,9 @@
 
 ## Інструкція з запуску:
 
+0. **Посилання**:
+    https://yanharazhun06.github.io/payment-app/
+
 1. **Клонування репозиторію**:
     ```bash
     git clone https://github.com/ваш-репозиторій.git
