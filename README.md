@@ -23,6 +23,8 @@
 0. **Посилання**:
     https://yanharazhun06.github.io/payment-app/
 
+АБО
+
 1. **Клонування репозиторію**:
     ```bash
     git clone https://github.com/ваш-репозиторій.git
