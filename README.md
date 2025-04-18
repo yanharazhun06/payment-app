@@ -18,12 +18,10 @@
 - **Custom Validator** — для виконання валідації введених даних.
 - **GitHub Pages** — для хостингу публічної версії додатку.
 
-## Інструкція з запуску:
-
 **Посилання**:
-    https://yanharazhun06.github.io/payment-app/
+- https://yanharazhun06.github.io/payment-app/
 
-    АБО
+## Інструкція з запуску:
 
 1. **Клонування репозиторію**:
     ```bash
