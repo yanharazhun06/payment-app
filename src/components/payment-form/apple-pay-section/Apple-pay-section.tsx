@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import styles from './apple-pay-section.module.css';
 import AppleIcon from "./apple-icon/Apple-Icon";
@@ -7,13 +8,15 @@ import Arrow from "../../header/arrow/Arrow";
 
 const ApplePaySection: React.FC = () => {
 
+    const {t} = useTranslation();
+
     return (
         <>
             <div className={styles.extra}>
                 <button type="button">
                     <Arrow/>
                 </button>
-                <div className={styles.checkout}>Checkout</div>
+                <div className={styles.checkout}>{t('checkout')}</div>
             </div>
             <div className={styles.apple_pay_section}>
                 <div className={styles.title}>

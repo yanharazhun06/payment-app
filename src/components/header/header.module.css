@@ -17,12 +17,20 @@
 
 .lang
 {
+    width: 48px;
     height: 40px;
     padding: 8px 8px 8px 15px;
 
     font-weight: 500;
     font-size: 14px;
     text-align: center;
+
+    font-weight: 600;
+    color: var(--primary-text-color);
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 @media (min-width: 1000px) {

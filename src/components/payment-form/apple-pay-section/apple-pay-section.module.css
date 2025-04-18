@@ -60,4 +60,21 @@
     {
         display: flex;
     }
+    .apple_pay_section, .title
+    {
+        align-items: flex-start;
+    }
+    .title
+    {
+        & > h2
+        {
+            font-size: 32px;
+            line-height: 40px;
+        }
+        & > p
+        {
+            font-size: 16px;
+            line-height: 24px;
+        }
+    }
 }

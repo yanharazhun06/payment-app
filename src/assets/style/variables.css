@@ -1,4 +1,7 @@
 :root {
     --primary-text-color: #363A43;
     --secondary-text-color: #666C7B;
+
+    --primary-button-color: hsl(144, 97%, 27%);
+    --primary-button-hover-color: hsl(144, 97%, 31%);
 }

@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
 import styles from './manual-pay-section.module.css';
 
@@ -7,15 +8,31 @@ import { PaymentHint } from "./payment-hint/Payment-hint";
 import Button from "../../button/Button";
 
 import { useValidation } from "../../../hooks/useValidate";
-import { formatCardNumber, formatExpDate } from "../../../utils/validateFuncs";
+import { validator } from "../../../utils/validator";
 
 const ManualPaySection: React.FC = () => {
 
     const [cardNum, setCardNum] = useState<string>('');
     const [expDate, setExpDate] = useState<string>('');
     const [CVC, setCVC] = useState<string>('');
+    const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
-    const { errors, validateField } = useValidation();
+    const {
+        formatCardNumber,
+        formatExpDate,
+        formatCVC
+    } = validator;
+
+    const { errors, validateField, validateAll } = useValidation();
+
+    const { t } = useTranslation();
+
+    const resetForm = () => {
+        setCardNum('');
+        setExpDate('');
+        setCVC('');
+        setIsProcessing(false);
+    };
 
     const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -33,21 +50,45 @@ const ManualPaySection: React.FC = () => {
                 setExpDate(value); 
                 break;
             }
-            case "CVC": setCVC(value); break;
+            case "CVC": {
+                value = formatCVC(value);
+                setCVC(value); 
+                break
+            };
         }
 
         validateField(name, value);
     }, [validateField]);
 
+    const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+    
+        const isValid = validateAll({ cardNum, expDate, CVC });
+    
+        if (isValid) {
+            setIsProcessing(true);
+
+        console.log("Data is valid. Sending:", { cardNum, expDate, CVC });
+
+        setTimeout(() => {
+            console.log("Data successfully sent!");
+            resetForm();
+        }, 10000);
+        } else {
+            console.log("Validation failed.");
+        }
+    }, [cardNum, expDate, CVC, validateAll]);
+
     return (
-        <form className={styles.manual_form}>
+        <form className={styles.manual_form} onSubmit={handleSubmit} autoComplete={"on"}>
             <PaymentInput 
                 key="card_number"
-                label="Card Number"
+                label={t('cardNumber')}
                 name="cardNum"
                 placeholder="1234 1234 1234 1234"
                 value={cardNum}
                 onChange={handleChange}
+                autocomplete="cc-number"
                 maxLength={19}
                 error={errors.cardNum}
             />
@@ -55,11 +96,12 @@ const ManualPaySection: React.FC = () => {
                 <div className={styles.row_item}>
                     <PaymentInput
                         key="exp_date"
-                        label="Expiration Date"
+                        label={t('expirationDate')}
                         name="expDate"
                         placeholder="MM/YY"
                         value={expDate}
                         onChange={handleChange}
+                        autocomplete="cc-exp"
                         maxLength={5}
                         error={errors.expDate}
                     />
@@ -72,6 +114,7 @@ const ManualPaySection: React.FC = () => {
                         placeholder="•••"
                         value={CVC}
                         onChange={handleChange}
+                        autocomplete="cc-csc"
                         maxLength={3}
                         error={errors.CVC}
                     />
@@ -82,7 +125,8 @@ const ManualPaySection: React.FC = () => {
                     key="manual_button"
                     type="submit"
                     variant="manual"
-                    content="Start Trial"
+                    content={t('manualButtonText')}
+                    isProcessing={isProcessing}
                 />
                 <PaymentHint key="payment_hint" planName="Plan Pro" period="during 1 year" renewalInfo="automatically renewed"/>
             </div>
