@@ -54,7 +54,7 @@ export const PaymentInput: React.FC<PaymentInputProps> = ({
                         onClick={handleInfoClick}
                         aria-label="What is CVC?"
                     >
-                        <img src="/icons/info.svg" alt="info"/>
+                        <img src={`${import.meta.env.BASE_URL}icons/info.svg`} />
                     </button>
                 )}
                 {showTooltip && name === "CVC" && (
