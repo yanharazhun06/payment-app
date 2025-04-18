@@ -1,54 +1,34 @@
-# React + TypeScript + Vite
+# Test assignment for Solidgate (Junior front-end dev)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Цей проект реалізує інтерфейс для обробки платіжної інформації, включаючи валідацію клієнтських даних. Проект також підтримує мультимовність та адаптивність для зручності користувачів.
 
-Currently, two official plugins are available:
+## Основні функції:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Валідація картки**: Перевірка номеру картки (16 цифр) на відповідність.
+- **Перевірка терміну дії картки**: Валідація формату та перевірка на термін придатності.
+- **Перевірка CVC**: Перевірка на відповідність формату (3 цифри).
+- **Мультимовна підтримка**: Локалізація інтерфейсу на англійську та українську мови.
+- **Обробка помилок**: Зручні повідомлення про помилки введених даних.
+- **Результат оплати**: В консолі...
 
-## Expanding the ESLint configuration
+## Технології:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React** — для побудови інтерфейсу користувача.
+- **i18next** — для мультимовної підтримки.
+- **Custom Validator** — для виконання валідації введених даних.
+- **GitHub Pages** — для хостингу публічної версії додатку.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Інструкція з запуску:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+1. **Клонування репозиторію**:
+    ```bash
+    git clone https://github.com/ваш-репозиторій.git
+    ```
+2. **Встановлення залежностей**:
+    ```bash
+    npm install
+    ```
+3. **Запуск проекту локально**:
+    ```bash
+    npm start
+    ```
