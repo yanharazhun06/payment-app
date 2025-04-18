@@ -1,0 +1,22 @@
+.footer
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    padding: 32px 0 40px 0;
+    color: #666C7B;
+
+    & > span.brand_name
+    {
+        font-weight: 600;
+    }
+}
+
+@media (min-width: 1000px) {
+    .footer
+    {
+        padding: 56px 0 24px 0;
+    }
+}

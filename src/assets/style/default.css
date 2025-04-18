@@ -1,0 +1,33 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Inter", sans-serif;
+}
+
+html, body
+{
+    height: 100%;
+}
+
+.layout
+{
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100vh;
+}
+
+.main
+{
+    flex: 1;
+}
+
+button
+{
+    outline: none;
+    border: none;
+    background-color: transparent;
+}

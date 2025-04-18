@@ -1,0 +1,14 @@
+.container
+{
+    width: 92.92vw;
+    margin: 0 auto;
+
+    position: relative;
+}
+
+@media (min-width: 452px) {
+    .container
+    {
+        width: 420px;
+    }
+}

@@ -1,0 +1,16 @@
+.payment_page
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+@media (min-width: 1000px) {
+    .payment_page
+    {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+    }
+}

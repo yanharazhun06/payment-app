@@ -1,0 +1,28 @@
+.manual_form
+{
+    margin-top: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.row
+{
+    display: flex;
+    gap: 2.5%;
+}
+
+.row_item
+{
+    width: 48.8%;
+}
+
+.form_footer
+{
+    margin-top: 4px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
