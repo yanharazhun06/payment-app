@@ -8,29 +8,24 @@ import { PaymentHint } from "./payment-hint/Payment-hint";
 import Button from "../../button/Button";
 
 import { useValidation } from "../../../hooks/useValidate";
-import { validator } from "../../../utils/validator";
 
 const ManualPaySection: React.FC = () => {
 
-    const [cardNum, setCardNum] = useState<string>('');
-    const [expDate, setExpDate] = useState<string>('');
-    const [CVC, setCVC] = useState<string>('');
+    const [formData, setFormData] = useState<{cardNum: string, expDate: string, CVC: string}>({
+        cardNum: '',
+        expDate: '',
+        CVC: ''
+    });
     const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
-    const {
-        formatCardNumber,
-        formatExpDate,
-        formatCVC
-    } = validator;
+    const { errors, validateField, validateAll, validator } = useValidation();
 
-    const { errors, validateField, validateAll } = useValidation();
+    const { formatCardNumber, formatExpDate, formatCVC } = validator;
 
     const { t } = useTranslation();
 
     const resetForm = () => {
-        setCardNum('');
-        setExpDate('');
-        setCVC('');
+        setFormData({ cardNum: '', expDate: '', CVC: '' });
         setIsProcessing(false);
     };
 
@@ -39,45 +34,32 @@ const ManualPaySection: React.FC = () => {
         const name = event.target.name as "cardNum" | "expDate" | "CVC";
         let value = event.target.value;
     
-        switch (name) {
-            case "cardNum": {
-                value = formatCardNumber(value);
-                setCardNum(value);
-                break;
-            }
-            case "expDate": {
-                value = formatExpDate(value);
-                setExpDate(value); 
-                break;
-            }
-            case "CVC": {
-                value = formatCVC(value);
-                setCVC(value); 
-                break
-            };
-        }
+        if (name === "cardNum") value = formatCardNumber(value);
+        if (name === "expDate") value = formatExpDate(value);
+        if (name === "CVC") value = formatCVC(value);
 
+        setFormData(prev => ({ ...prev, [name]: value }));
         validateField(name, value);
-    }, [validateField]);
+
+    }, [formatCardNumber, formatExpDate, formatCVC, validateField]);
 
     const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
     
-        const isValid = validateAll({ cardNum, expDate, CVC });
+        const isValid = validateAll(formData);
     
         if (isValid) {
             setIsProcessing(true);
+            console.log("Data is valid. Sending:", formData);
 
-        console.log("Data is valid. Sending:", { cardNum, expDate, CVC });
-
-        setTimeout(() => {
-            console.log("Data successfully sent!");
-            resetForm();
-        }, 10000);
+            setTimeout(() => {
+                console.log("Data successfully sent!");
+                resetForm();
+            }, 10000);
         } else {
             console.log("Validation failed.");
         }
-    }, [cardNum, expDate, CVC, validateAll]);
+    }, [formData, validateAll]);
 
     return (
         <form className={styles.manual_form} onSubmit={handleSubmit} autoComplete={"on"}>
@@ -86,7 +68,7 @@ const ManualPaySection: React.FC = () => {
                 label={t('cardNumber')}
                 name="cardNum"
                 placeholder="1234 1234 1234 1234"
-                value={cardNum}
+                value={formData.cardNum}
                 onChange={handleChange}
                 autocomplete="cc-number"
                 maxLength={19}
@@ -99,7 +81,7 @@ const ManualPaySection: React.FC = () => {
                         label={t('expirationDate')}
                         name="expDate"
                         placeholder="MM/YY"
-                        value={expDate}
+                        value={formData.expDate}
                         onChange={handleChange}
                         autocomplete="cc-exp"
                         maxLength={5}
@@ -112,7 +94,7 @@ const ManualPaySection: React.FC = () => {
                         label="CVC"
                         name="CVC"
                         placeholder="•••"
-                        value={CVC}
+                        value={formData.CVC}
                         onChange={handleChange}
                         autocomplete="cc-csc"
                         maxLength={3}

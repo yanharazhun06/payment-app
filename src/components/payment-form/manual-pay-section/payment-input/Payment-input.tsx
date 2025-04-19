@@ -1,5 +1,7 @@
 import React, { useState, ChangeEventHandler } from "react";
 
+import { useTranslation } from "react-i18next";
+
 import styles from './payment-input.module.css';
 
 import icon from './icon/info.svg';
@@ -12,7 +14,7 @@ type PaymentInputProps = {
     value: string,
     autocomplete: "cc-number" | "cc-exp" | "cc-csc",
     maxLength: number,
-    error?: string,
+    error?: string | null,
 }
 
 export const PaymentInput: React.FC<PaymentInputProps> = ({
@@ -28,6 +30,8 @@ export const PaymentInput: React.FC<PaymentInputProps> = ({
 
     const [showTooltip, setShowTooltip] = useState(false);
 
+    const { t } = useTranslation();
+
     const handleInfoClick = () => {
         setShowTooltip(prev => !prev)
 
@@ -38,7 +42,7 @@ export const PaymentInput: React.FC<PaymentInputProps> = ({
 
     return (
         <div className={styles.input_wrapper}>
-            <label htmlFor={name}>{error || label}</label>
+            <label htmlFor={name}>{error ? t(`errors.${error}`) : label}</label>
             <div className={styles.inputContainer}>
                 <input 
                     name={name} 

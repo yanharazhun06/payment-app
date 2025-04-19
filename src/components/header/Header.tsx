@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { useLanguageSwitcher } from '../../hooks/useLanguageSwitcher';
 import { useTranslation } from 'react-i18next';
-import { validator } from "../../utils/validator";
 
 import styles from './header.module.css';
 
@@ -13,13 +12,10 @@ const Header: React.FC = () => {
     const { switchLanguage, currentLanguage } = useLanguageSwitcher();
     const { t } = useTranslation();
 
-    const { setLanguage } = validator;
-
     const [currentLang, setCurrentLang] = useState<string>('');
 
     useEffect(() => {
         setCurrentLang(currentLanguage === 'en' ? 'Укр' : 'En');
-        setLanguage(currentLanguage === 'en' ? 'en' : 'ua');
 
     }, [currentLanguage]);
 

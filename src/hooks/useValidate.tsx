@@ -1,47 +1,53 @@
-import { useState, useCallback } from "react";
-import { validator } from "../utils/validator";
+import { useState, useCallback, useMemo } from 'react';
+import { Validator } from '../utils/validator';
 
 export const useValidation = () => {
 
-    const [errors, setErrors] = useState<{ cardNum?: string, expDate?: string, CVC?: string }>({});
+    const validator = useMemo(() => new Validator(), []);
 
-    const {
-        validateCardNum,
-        validateExpDate,
-        validateCVC,
-    } = validator;
-
+    const [errors, setErrors] = useState<{ cardNum: string | null; expDate: string | null; CVC: string | null }>({
+        cardNum: null,
+        expDate: null,
+        CVC: null
+    });
+  
     const validateField = useCallback((name: string, value: string) => {
-
-        let errorMessage = '';
-
+        let errorMessage: string | null = null;
         switch (name) {
-            case "cardNum": errorMessage = validateCardNum(value); break;
-            case "expDate": errorMessage = validateExpDate(value); break;
-            case "CVC": errorMessage = validateCVC(value); break;
+          case 'cardNum':
+            errorMessage = validator.validateCardNum(value);
+            break;
+          case 'expDate':
+            errorMessage = validator.validateExpDate(value);
+            break;
+          case 'CVC':
+            errorMessage = validator.validateCVC(value);
+            break;
+          default:
+            break;
         }
-
-        setErrors(prevErrors => ({
-            ...prevErrors,
-            [name]: errorMessage
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: errorMessage,
         }));
-    }, []);
-
-    const validateAll = useCallback((fields: { cardNum: string, expDate: string, CVC: string }) => {
-        const newErrors: { cardNum?: string, expDate?: string, CVC?: string } = {};
-
-        newErrors.cardNum = validateCardNum(fields.cardNum);
-        newErrors.expDate = validateExpDate(fields.expDate);
-        newErrors.CVC = validateCVC(fields.CVC);
-
+      }, [validator]);
+    
+      const validateAll = useCallback((fields: { cardNum: string; expDate: string; CVC: string }) => {
+        const newErrors: { cardNum: string | null; expDate: string | null; CVC: string | null } = {
+          cardNum: validator.validateCardNum(fields.cardNum),
+          expDate: validator.validateExpDate(fields.expDate),
+          CVC: validator.validateCVC(fields.CVC),
+        };
+    
         setErrors(newErrors);
-
+    
         return !newErrors.cardNum && !newErrors.expDate && !newErrors.CVC;
-    }, []);
-
-    return {
+      }, [validator]);
+    
+      return {
         errors,
         validateField,
         validateAll,
-    };
+        validator
+      };
 };
