@@ -20,18 +20,3 @@
 
 **Посилання**:
 - https://yanharazhun06.github.io/payment-app/
-
-## Інструкція з запуску:
-
-1. **Клонування репозиторію**:
-    ```bash
-    git clone https://github.com/ваш-репозиторій.git
-    ```
-2. **Встановлення залежностей**:
-    ```bash
-    npm install
-    ```
-3. **Запуск проекту локально**:
-    ```bash
-    npm start
-    ```
